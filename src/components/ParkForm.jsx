@@ -1,46 +1,66 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 import userdata from '../store/useParkStore';
 
+
 const ParkForm = () => {
-    // const {} = userdata();
-    const [name, setName] = useState();
-    const [age, setAge] = useState();
-    const [id, setId] = useState();
-    const [country, setCountry] = useState();
-    const [ticket, setTicket] = useState();
+    const {loadcliends,  addclient} = userdata();
+
+    const [name, setName] = useState("");
+    const [age, setAge] = useState("");
+    const [id, setId] = useState("");
+    const [country, setCountry] = useState("");
+    const [ticket, setTicket] = useState("");
+
+    useEffect (()=> {
+        loadcliends();
+    }, [])
+
+
+     const handleSave = () => {
+        e.preventDefault(); 
+        if(name && age && id && country && ticket) {
+            console.log(name, " " , id, " " , country, " ",  ticket)
+            addclient(name, parseInt(age), parseInt(id), country, ticket)
+            setName("")
+            setAge("")
+            setId("")
+            setCountry("")
+            setTicket("")
+        }
+    }
 
     return (
-        <form className="flex max-w-md flex-col gap-4">
+        <form onSubmit={handleSave} className="flex max-w-md flex-col gap-4">
             <div>
                 <div className="mb-2 block">
                     <Label htmlFor="name" value="Name" />
                 </div>
-                <TextInput value={name} onChange={(e)=> setName(e.target.value)} type="text" placeholder="Enter Your Name" required />
+                <TextInput  type="text" value={name} onChange={(e)=> setName(e.target.value)} placeholder="Enter Your Name" required />
             </div>
             <div>
                 <div className="mb-2 block">
                     <Label htmlFor="age" value="Age" />
                 </div>
-                <TextInput value={age} type="number" required placeholder='Enter Your Age' />
+                <TextInput value={age} onChange={(e) => setAge(e.target.value)} type="number" required placeholder='Enter Your Age' />
             </div>
             <div>
                 <div className="mb-2 block">
-                    <Label htmlFor="id" value="ID" />
+                    <Label htmlFor="id" value="Id" />
                 </div>
-                <TextInput value={id}  type="number" placeholder="Enter Your ID" required />
+                <TextInput value={id} onChange={(e) => setId(e.target.value)}  type="number" placeholder="Enter Your ID" required />
             </div>
             <div>
                 <div className="mb-2 block">
                     <Label htmlFor="country" value="Country" />
                 </div>
-                <TextInput value={country} type="text" placeholder="Enter Your Country" required />
+                <TextInput value={country} onChange={(e)=> setCountry(e.target.value)} type="text" placeholder="Enter Your Country" required />
             </div>
             <div>
                 <div className="mb-2 block">
-                    <Label htmlFor="ticket" value="Ticket Price" />
+                    <Label htmlFor="ticket" value="Ticket" />
                 </div>
-                <TextInput value={ticket} type="text" placeholder="Enter Your Ticket Price" required />
+                <TextInput value={ticket} onChange={(e) => setTicket(e.target.value)} type="text" placeholder="Enter Your Ticket Price" required />
             </div>
             
             <div className="flex items-center gap-2">
