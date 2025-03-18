@@ -14,7 +14,7 @@ const userdata = create((set) => ({
     set({clientData})
    },
 
-   removeClient: async(id) => {
+   removeFriends: async(id) => {
       await db.clientData.delete(id);
       const clientData = await db.clientData.toArray();
       set({clientData})

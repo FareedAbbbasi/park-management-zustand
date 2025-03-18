@@ -9,7 +9,6 @@ function App() {
     <div>
       <Navbar />
     <div className='flex items-center justify-center min-h-screen '>
-     
       <div>
         <h1 className='py-10 text-center text-[40px] font-bold'>Ticket Information</h1>
         <div className='w-[500px] bg-gray-200 p-8 rounded-[10px]'>
